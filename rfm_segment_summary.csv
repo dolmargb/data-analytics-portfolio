@@ -1,0 +1,6 @@
+rfm_retention_segment,customer_count,avg_mrr,annualized_arr,avg_adoption_pct,avg_tickets,avg_recency_days,avg_lifetime_spend
+Champions & Loyalists,15648,677.74,127263328.08,87.3,1.75,31.1,16166.59
+Core Active,14163,670.47,113950348.68,72.4,1.81,32.9,15266.4
+High-Risk At-Risk,7195,669.69,57821219.52,63.7,3.21,32.2,15587.44
+Needs Nurture,4106,663.33,32683745.16,53.3,2.19,31.0,15454.28
+Churned,3888,684.84,31951752.0,65.6,2.88,116.2,15852.25

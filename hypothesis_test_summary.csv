@@ -1,0 +1,4 @@
+Test_Name,Null_Hypothesis,Test_Statistic,p_Value,Confidence_Level,Decision,Effect_Size
+One-Way ANOVA (Acquisition Channel Revenue),"Mean account revenue is equal across Direct, Partner, and Digital channels",F = 19617.37,< 0.0001,95% (alpha = 0.05),Reject H0 (Significant Channel Premium: Direct +$580 vs Digital),"Mean Direct=$7,454, Partner=$7,112, Digital=$6,874"
+Welch's Two-Sample t-Test (SLA Response <= 2h vs > 2h),Fast lead response (<=2 hrs) yields equal account value to slower response (>2 hrs),t = 100.86,< 0.0001,95% (alpha = 0.05),Reject H0 (Fast SLA response increases mean account value),+$272.61 higher annual value per account
+Pearson Chi-Square Independence Test (Utilization >= 65% vs Top Tier Revenue),Product utilization tier is independent of above-median revenue performance,Chi2 = 205492.98,< 0.0001,95% (alpha = 0.05),Reject H0 (Strong positive association between utilization and tier),"df = 1, n = 1,020,000"

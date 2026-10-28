@@ -1,0 +1,77 @@
+// ============================================================================
+// PROJECT 1: FINANCIAL FORECASTING & REVENUE ANALYSIS — POWER BI DAX LIBRARY
+// Data Model: Fact_Financials (Monthly Segment Actuals & Budgets)
+//             Fact_Forecast_Scenarios (2026 Base, Bull, Bear, 95% CI Bounds)
+//             Dim_Calendar, Dim_Segment, Dim_Region
+// Tracks 18 Core Executive Financial & Operational KPIs
+// ============================================================================
+
+// 1. Actual Revenue ($)
+Actual Revenue = SUM(Fact_Financials[Actual_Revenue])
+
+// 2. Budgeted Revenue ($)
+Budget Revenue = SUM(Fact_Financials[Budget_Revenue])
+
+// 3. Revenue Budget Variance ($)
+Revenue Variance ($) = [Actual Revenue] - [Budget Revenue]
+
+// 4. Revenue Budget Variance (%)
+Revenue Variance (%) = DIVIDE([Revenue Variance ($)], [Budget Revenue], 0)
+
+// 5. YoY Revenue Growth (%)
+Prior Year Revenue = CALCULATE([Actual Revenue], SAMEPERIODLASTYEAR(Dim_Calendar[Date]))
+YoY Revenue Growth (%) = DIVIDE([Actual Revenue] - [Prior Year Revenue], [Prior Year Revenue], 0)
+
+// 6. Rolling 12-Month (TTM) Revenue
+TTM Revenue = 
+CALCULATE(
+    [Actual Revenue],
+    DATESINPERIOD(Dim_Calendar[Date], MAX(Dim_Calendar[Date]), -12, MONTH)
+)
+
+// 7. Gross Profit ($) & 8. Gross Margin (%)
+Gross Profit = SUM(Fact_Financials[Gross_Profit])
+Gross Margin (%) = DIVIDE([Gross Profit], [Actual Revenue], 0)
+
+// 9. Total Operating Expenses (OpEx $) & 10. OpEx Ratio (%)
+Total OpEx = SUM(Fact_Financials[Total_OpEx])
+OpEx Ratio (%) = DIVIDE([Total OpEx], [Actual Revenue], 0)
+
+// 11. EBITDA ($) & 12. EBITDA Margin (%)
+EBITDA = SUM(Fact_Financials[EBITDA])
+EBITDA Margin (%) = DIVIDE([EBITDA], [Actual Revenue], 0)
+
+// 13. Net Income ($) & 14. Net Profit Margin (%)
+Net Income = SUM(Fact_Financials[Net_Income])
+Net Profit Margin (%) = DIVIDE([Net Income], [Actual Revenue], 0)
+
+// 15. Operating Cash Flow ($) & Cash Conversion Ratio
+Operating Cash Flow = SUM(Fact_Financials[Operating_Cash_Flow])
+Cash Conversion (%) = DIVIDE([Operating Cash Flow], [EBITDA], 0)
+
+// 16. Average Revenue Per Account (ARPU $)
+Active Customers = SUM(Fact_Financials[Active_Customers])
+ARPU ($) = DIVIDE([Actual Revenue], [Active Customers], 0)
+
+// 17. Revenue Per Employee ($ / FTE)
+Headcount FTE = SUM(Fact_Financials[Headcount_FTE])
+Revenue Per FTE = DIVIDE([Actual Revenue], [Headcount FTE], 0)
+
+// 18. Dynamic Scenario Forecast Selector (Base / Bull / Bear) & Holdout MAPE (%)
+Selected Scenario Forecast = 
+SWITCH(
+    SELECTEDVALUE(Slicer_Scenario[Scenario_Name], "Base Case"),
+    "Bull Case (+8.2% Upside)", SUM(Fact_Forecast_Scenarios[Bull_Case_Forecast]),
+    "Bear Case (-7.8% Downside)", SUM(Fact_Forecast_Scenarios[Bear_Case_Forecast]),
+    SUM(Fact_Forecast_Scenarios[Base_Case_Forecast])
+)
+
+Holdout Forecast MAPE (%) = 
+AVERAGEX(
+    Fact_Holdout_Eval,
+    DIVIDE(
+        ABS(Fact_Holdout_Eval[Actual_Revenue] - Fact_Holdout_Eval[Ensemble_Forecast]),
+        Fact_Holdout_Eval[Actual_Revenue],
+        0
+    )
+)

@@ -1,0 +1,13 @@
+contract_type,onboarding_status,support_tier,customers,churned_customers,churn_rate_pct,arr_lost
+Month-to-Month,Incomplete,3+ Tickets,3323,1115,33.55,8998294.8
+Month-to-Month,Incomplete,0-2 Tickets,2401,412,17.16,3303145.08
+Month-to-Month,Completed,3+ Tickets,3931,643,16.36,5490281.4
+Annual,Incomplete,3+ Tickets,3006,299,9.95,2580915.48
+Month-to-Month,Completed,0-2 Tickets,10801,800,7.41,6571396.68
+Two-Year,Incomplete,3+ Tickets,940,57,6.06,519379.08
+Annual,Completed,3+ Tickets,3653,177,4.85,1473945.24
+Annual,Incomplete,0-2 Tickets,2295,89,3.88,655577.16
+Two-Year,Incomplete,0-2 Tickets,695,23,3.31,142660.32
+Two-Year,Completed,3+ Tickets,1103,36,3.26,283179.48
+Annual,Completed,0-2 Tickets,9867,203,2.06,1738614.84
+Two-Year,Completed,0-2 Tickets,2985,34,1.14,194362.44
